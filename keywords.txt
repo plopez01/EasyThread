@@ -1,0 +1,2 @@
+EZThread KEYWORD1
+setInterval KEYWORD2
