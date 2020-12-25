@@ -6,8 +6,9 @@
 class EasyThread {
     public:
         EZThread(int threads);
-        void setInterval(void (*f)(void), int interval);
+        void newThread(void (*f)(void), int time);
     private:
         unsigned long *_schedules;
-        int _schnum;
+        void *_f;
+        int _schid;
 }
