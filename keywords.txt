@@ -1,2 +1,3 @@
-EZThread KEYWORD1
-setInterval KEYWORD2
+EZThread	KEYWORD1
+newThread		KEYWORD2
+schedule	KEYWORD2

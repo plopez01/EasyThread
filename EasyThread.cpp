@@ -1,20 +1,29 @@
 #include "Arduino.h"
 #include "EasyThread.h"
 
-EasyThread::EZThread(int threads){
+EZThread::EZThread(int threads){
     unsigned long schedules[threads];
-    *_f = (*functptr[threads])();
-    *_schedules = schedules;
+    int intervals[threads];
+    void (*f[threads])();
+    _f = f;
+    _schedules = schedules;
+    _intervals = intervals;
     _schid = 0;
 }
 
-EasyThread::newThread(void (*f)(void), int time){
-
+void EZThread::newThread(void (*f)(), int time){
+    *(_f + _schid) = f;
+    *(_intervals + _schid) = time;
+    *(_schedules + _schid) = (unsigned long) 0;
+    _schid++;
 }
 
-/*
-unsigned long currentTime = millis();
-    if(currentTime - *_schedules[_schid] >= time){
-        (*f)();
-        *_schedules[_schid] = currentTime;
-    }*/
+void EZThread::schedule(){
+    unsigned long now = millis();
+    for(int i = 0; i < _schid; i++){
+        if(now - *(_schedules + _schid) >= *(_intervals + _schid)){
+            (*(_f + _schid))();
+            *(_schedules + _schid) = now;
+        }
+    }
+}

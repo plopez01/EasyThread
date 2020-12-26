@@ -1,14 +1,16 @@
 #ifndef EasyThread_h
-#define EasyThread_h
+    #define EasyThread_h
+    #include "Arduino.h"
+#endif
 
-#include "Arduino.h"
-
-class EasyThread {
+class EZThread {
     public:
         EZThread(int threads);
         void newThread(void (*f)(void), int time);
+        void schedule();
     private:
         unsigned long *_schedules;
-        void *_f;
+        int *_intervals;
+        void (**_f)();
         int _schid;
-}
+};
