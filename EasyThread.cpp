@@ -35,6 +35,8 @@ void EZThread::newThread(void (*f)(), int time){
     _schid++;
 }
 
+// schedule declaration
+// This function executes the threads that should be executed and resets it's timers
 void EZThread::schedule(){
     // We store the current time in which we are scheduling
     unsigned long now = millis();
